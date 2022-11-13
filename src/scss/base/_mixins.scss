@@ -1,0 +1,93 @@
+$palm: 320px;
+$hands: 530px;
+$handsWide: 850px;
+$lap: 1024px;
+$desk: 1600px;
+$deskLarge: 1920px;
+
+@mixin mq-min($minWidth) {
+  @media screen and (min-width: $minWidth) {
+    @content;
+  }
+}
+
+@mixin mq-max($maxWidth) {
+  @media screen and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+@mixin mq-minmax($minWidth, $maxWidth) {
+  @media screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+@mixin mq-hover {
+  @media not all and (hover: none) and (pointer: coarse) {
+    &:hover {
+      @content;
+    }
+  }
+
+  @media all and (hover: none) and (pointer: coarse) {
+    &:active {
+      -webkit-tap-highlight-color: transparent;
+      @content;
+    }
+  }
+}
+
+@mixin mq-animation() {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+@mixin text-selection($color-selection, $color-selection-bg) {
+  ::-moz-selection {
+    background: $color-selection-bg;
+    color: $color-selection;
+    text-shadow: none;
+  }
+
+  ::selection {
+    background: $color-selection-bg;
+    color: $color-selection;
+    text-shadow: none;
+  }
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}
+
+@mixin wrapper-margin($max-width) {
+  max-width: $max-width;
+  margin: 0 auto;
+  @content;
+}
+
+@mixin wrapper-padding($max-width, $top: 0, $bottom: 0) {
+  $half-width: $max-width / 2;
+  padding-top: $top;
+  padding-bottom: $bottom;
+  padding-left: calc(50% - #{$half-width});
+  padding-right: calc(50% - #{$half-width});
+}
+
+@mixin rel-width($width-block, $width-container) {
+  width: percentage($width-block / $width-container);
+}
+
+@mixin aspect-ratio($width, $height) {
+  padding-bottom: percentage($width / $height);
+}
